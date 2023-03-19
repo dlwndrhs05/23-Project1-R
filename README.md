@@ -18,5 +18,14 @@
 ```Terminal
 ~brew install R
 ```
+### R 스튜디오 설치
+똑같이 Homewbrew로 설치 하였다
+```Terminal
+~brew install Caskroom/cask/rstudio
+```
+### R 스튜디오의 화면 구성
+ R스튜디오의 화면은 소스 영역,콘솔 영역, 환경 영역,파일 영역 4가지로 구성된다
+    * 소스 영역
+ 
 ## 2023-03-09
 github 연결 및 저장소 추가
