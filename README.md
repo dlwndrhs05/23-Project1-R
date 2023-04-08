@@ -1,4 +1,110 @@
 # 이중곤
+## 2023-04-06
+
+### 행과 열에 이름 붙히기
+
+```R
+    > score <- matrix(c(90,85,69,78,85,96,49,95,90,80,70,60), nrow=4)
+
+    > score
+        [,1] [,2] [,3]
+    [1,]   90   85   90
+    [2,]   85   96   80
+    [3,]   69   49   70
+    [4,]   78   95   60
+
+    > rownames(score) <-c('John','Tom','Mark','Jane') #행의 이름
+
+    > colnames(score) <-c('English','Math','Science') #열의 이름
+
+    > score
+        English Math Science
+    John      90   85      90
+    Tom       85   96      80
+    Mark      69   49      70
+    Jane      78   95      60
+
+    > score['John','Math']
+    [1] 85
+
+    > score['Tom',c('Math','Science')]
+   Math Science 
+     96      80 
+
+    > score['Mark',]            #마크의 모든 성적
+    English    Math Science 
+        69      49      70 
+    > score[,'English']         #모든학생의 영어성적
+    John  Tom Mark Jane 
+    90   85   69   78 
+
+    > rownames(score)
+    [1] "John" "Tom"  "Mark" "Jane"
+    > colnames(score)
+    [1] "English" "Math"    "Science"
+    > colnames(score)[2]
+    [1] "Math"
+    
+```
+### 데이터프레임
+* 데이터 프레임은 매트릭스와 마찬가지로 2차원 형태의 데이터를 저장하고 분석되는데 사용된다.  
+동일한 자료형을 갖는 2차원형태의 자료는 매트릭스에 서로다른 자료형을 갖는 2차원 형태의
+자료는 데이터 프레임에 저장하여 사용하면 된다.
+### 1.데이터 프레임 만들기
+```R
+    > city <-c("Seoul","Tokyo","Washington")
+    > rank <-c(1,3,2)
+    > city.info <- data.frame(city,rank)
+    > city.info
+            city rank
+    1      Seoul    1
+    2      Tokyo    3
+    3 Washington    2
+```
+### 2.iris 데이터셋
+* iris 데이터셋은 데이터 프레임을 연습에 사용되는 R에서 제공되는 데이터 셋으로  
+R에 기본적으로 저장이 되어 있어 바로 이용이 가능하다.
+```R
+    #iris 데이터셋
+    > iris
+        Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+    1            5.1         3.5          1.4         0.2     setosa
+    2            4.9         3.0          1.4         0.2     setosa
+    3            4.7         3.2          1.3         0.2     setosa
+    4            4.6         3.1          1.5         0.2     setosa
+    5            5.0         3.6          1.4         0.2     setosa
+    6            5.4         3.9          1.7         0.4     setosa
+    7            4.6         3.4          1.4         0.3     setosa
+    8            5.0         3.4          1.5         0.2     setosa
+    9            4.4         2.9          1.4         0.2     setosa
+    10           4.9         3.1          1.5         0.1     setosa
+
+    150          5.9         3.0          5.1         1.8  virginica
+```
+### 매트릭스와 데이터 프레임
+
+### 1. 데이터셋의 기본 정보
+### 2. 매트릭스와 데이터프레임에 함수 사용
+
+### 3. 매트릭스와 데이터프레임의 자료구조 확인과 변환
+
+### 4. 데이터프레임만 적용되는 열 추출 방법
+
+### 데이터의 입력과 출력
+
+### 1.R에서의 입력과 출력
+
+### 2.화면에서 데이터 입력받기
+
+### 3.print() 함수와 cat() 함수
+
+### 파일을 이용해 데이터를 읽고 쓰기
+
+### 1.작업 폴더 확인
+
+### 2. csv확장자 파일 읽기와 쓰기
+
+### 3. 엑셀 파일 읽기와 쓰기
 
 ## 2023-03-39
 
