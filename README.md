@@ -80,11 +80,125 @@ R에 기본적으로 저장이 되어 있어 바로 이용이 가능하다.
     10           4.9         3.1          1.5         0.1     setosa
 
     150          5.9         3.0          5.1         1.8  virginica
+
+    > iris[1:5,]            # 1~5행의 모든 데이터
+    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+    1          5.1         3.5          1.4         0.2  setosa
+    2          4.9         3.0          1.4         0.2  setosa
+    3          4.7         3.2          1.3         0.2  setosa
+    4          4.6         3.1          1.5         0.2  setosa
+    5          5.0         3.6          1.4         0.2  setosa
+
+    > iris[1:5,c(1,3)]      # 1~5행의 데이터 중 1,3열의 데이터
+    Sepal.Length Petal.Length
+    1          5.1          1.4
+    2          4.9          1.4
+    3          4.7          1.3
+    4          4.6          1.5
+    5          5.0          1.4
 ```
 ### 매트릭스와 데이터 프레임
-
+* 매트릭스와 데이터 프레임은 모두 2차원 형태의 데이터를 저장하는 자료구조이기 때문에  
+다루는 대부분의 방법이 동일하지만 명령문이나 함수에 따라서 적용되는 구조가 다르다.
 ### 1. 데이터셋의 기본 정보
+```R
+    > dim(iris)     #행과 열의 개수 보이기
+    [1] 150   5
+
+    > nrow(iris)    # 행의 개수 보이기
+    [1] 150
+
+    > ncol(iris)    # 열의 개수 보이기
+    [1] 5
+
+    > colnames(iris)    #열 이름 보이기,names()함수와 결과 동일
+    [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"  
+
+    > head(iris)    # 데이터셋의 앞부분 일부 보기
+    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+    1          5.1         3.5          1.4         0.2  setosa
+    2          4.9         3.0          1.4         0.2  setosa
+    3          4.7         3.2          1.3         0.2  setosa
+    4          4.6         3.1          1.5         0.2  setosa
+    5          5.0         3.6          1.4         0.2  setosa
+    6          5.4         3.9          1.7         0.4  setosa
+
+    > tail(iris)    # 데이터셋의 뒷부분 일부 보기
+        Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+    145          6.7         3.3          5.7         2.5 virginica
+    146          6.7         3.0          5.2         2.3 virginica
+    147          6.3         2.5          5.0         1.9 virginica
+    148          6.5         3.0          5.2         2.0 virginica
+    149          6.2         3.4          5.4         2.3 virginica
+    150          5.9         3.0          5.1         1.8 virginica
+
+    > str(iris)     # 데이터셋 요약 정보 보기
+    'data.frame':	150 obs. of  5 variables:
+    $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+    $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+    $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+    $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+    $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+
+    > iris[,5]      #품종 데이터 보기
+    [1] setosa     setosa     setosa     setosa     setosa     setosa     setosa     setosa    
+    [9] setosa     setosa     setosa     setosa     setosa     setosa     setosa     setosa    
+    [17] setosa     setosa     setosa     setosa     setosa     setosa     setosa     setosa    
+    [25] setosa     setosa     setosa     setosa     setosa     setosa     setosa     setosa    
+    [33] setosa     setosa     setosa     setosa     setosa     setosa     setosa     setosa    
+    [41] setosa     setosa     setosa     setosa     setosa     setosa     setosa     setosa    
+    [49] setosa     setosa     versicolor versicolor versicolor versicolor versicolor versicolor
+    [57] versicolor versicolor versicolor versicolor versicolor versicolor versicolor versicolor
+    [65] versicolor versicolor versicolor versicolor versicolor versicolor versicolor versicolor
+    [73] versicolor versicolor versicolor versicolor versicolor versicolor versicolor versicolor
+    [81] versicolor versicolor versicolor versicolor versicolor versicolor versicolor versicolor
+    [89] versicolor versicolor versicolor versicolor versicolor versicolor versicolor versicolor
+    [97] versicolor versicolor versicolor versicolor virginica  virginica  virginica  virginica 
+    [105] virginica  virginica  virginica  virginica  virginica  virginica  virginica  virginica 
+    [113] virginica  virginica  virginica  virginica  virginica  virginica  virginica  virginica 
+    [121] virginica  virginica  virginica  virginica  virginica  virginica  virginica  virginica 
+    [129] virginica  virginica  virginica  virginica  virginica  virginica  virginica  virginica 
+    [137] virginica  virginica  virginica  virginica  virginica  virginica  virginica  virginica 
+    [145] virginica  virginica  virginica  virginica  virginica  virginica 
+    Levels: setosa versicolor virginica
+
+    > levels(iris[,5])  # 품종의 종류 보기(중복 제거)
+    [1] "setosa"     "versicolor" "virginica" 
+
+    > table(iris[,"Species"])   # 품종의 종류별 행의 개수 세기
+
+        setosa versicolor  virginica 
+            50         50         50 
+```
 ### 2. 매트릭스와 데이터프레임에 함수 사용
+```R
+    > colSums(iris[,-5])    # 열별 합계
+        Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+        876.5        458.6        563.7        179.9 
+    > colMeans(iris[,-5])   # 열별 평균
+        Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+        5.843333     3.057333     3.758000     1.199333 
+    > rowSums(iris[,-5])    # 행별 합계
+        [1] 10.2  9.5  9.4  9.4 10.2 11.4  9.7 10.1  8.9  9.6 10.8 10.0  9.3  8.5 11.2 12.0 11.0 10.3 11.5
+        [20] 10.7 10.7 10.7  9.4 10.6 10.3  9.8 10.4 10.4 10.2  9.7  9.7 10.7 10.9 11.3  9.7  9.6 10.5 10.0
+        [39]  8.9 10.2 10.1  8.4  9.1 10.7 11.2  9.5 10.7  9.4 10.7  9.9 16.3 15.6 16.4 13.1 15.4 14.3 15.9
+        [58] 11.6 15.4 13.2 11.5 14.6 13.2 15.1 13.4 15.6 14.6 13.6 14.4 13.1 15.7 14.2 15.2 14.8 14.9 15.4
+        [77] 15.8 16.4 14.9 12.8 12.8 12.6 13.6 15.4 14.4 15.5 16.0 14.3 14.0 13.3 13.7 15.1 13.6 11.6 13.8
+        [96] 14.1 14.1 14.7 11.7 13.9 18.1 15.5 18.1 16.6 17.5 19.3 13.6 18.3 16.8 19.4 16.8 16.3 17.4 15.2
+        [115] 16.1 17.2 16.8 20.4 19.5 14.7 18.1 15.3 19.2 15.7 17.8 18.2 15.6 15.8 16.9 17.6 18.2 20.1 17.0
+        [134] 15.7 15.7 19.1 17.7 16.8 15.6 17.5 17.8 17.4 15.5 18.2 18.2 17.2 15.7 16.7 17.3 15.8
+    > rowMeans(iris[,-5])   # 행별 평균
+        [1] 2.550 2.375 2.350 2.350 2.550 2.850 2.425 2.525 2.225 2.400 2.700 2.500 2.325 2.125 2.800 3.000
+        [17] 2.750 2.575 2.875 2.675 2.675 2.675 2.350 2.650 2.575 2.450 2.600 2.600 2.550 2.425 2.425 2.675
+        [33] 2.725 2.825 2.425 2.400 2.625 2.500 2.225 2.550 2.525 2.100 2.275 2.675 2.800 2.375 2.675 2.350
+        [49] 2.675 2.475 4.075 3.900 4.100 3.275 3.850 3.575 3.975 2.900 3.850 3.300 2.875 3.650 3.300 3.775
+        [65] 3.350 3.900 3.650 3.400 3.600 3.275 3.925 3.550 3.800 3.700 3.725 3.850 3.950 4.100 3.725 3.200
+        [81] 3.200 3.150 3.400 3.850 3.600 3.875 4.000 3.575 3.500 3.325 3.425 3.775 3.400 2.900 3.450 3.525
+        [97] 3.525 3.675 2.925 3.475 4.525 3.875 4.525 4.150 4.375 4.825 3.400 4.575 4.200 4.850 4.200 4.075
+        [113] 4.350 3.800 4.025 4.300 4.200 5.100 4.875 3.675 4.525 3.825 4.800 3.925 4.450 4.550 3.900 3.950
+        [129] 4.225 4.400 4.550 5.025 4.250 3.925 3.925 4.775 4.425 4.200 3.900 4.375 4.450 4.350 3.875 4.550
+        [145] 4.550 4.300 3.925 4.175 4.325 3.950
+```
 
 ### 3. 매트릭스와 데이터프레임의 자료구조 확인과 변환
 
