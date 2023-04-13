@@ -1,4 +1,35 @@
 # 이중곤
+
+## 2023-04-13
+
+### 파일 입출력할때 알아야 할 내용
+### 1. 실행 결과를 파일로 출력
+```R
+    > setwd('Projects/23-Project1-R/')          #작업폴더
+
+    > print('Begin work')                       #화면출력
+        [1] "Begin work"
+
+    > a<-10;b<-20
+
+    > sink('result.txt',append=T)               #출력 시작,출력할 파일이름,내용 맨마지막에 추가
+                                                #append=F를 사용시 기존 내용 삭제 후 작성
+
+    > cat('a+b=',a+b,'\n')
+
+    > sink()                                    #출력 중지
+
+    > sink('result.txt',append=T)
+
+    > cat('a*b=',a*b,'\n')
+
+    > sink()
+
+    > print('End work')
+        [1] "End work"
+```
+### 2.탭이나 공백으로 분리된 파일 읽기
+
 ## 2023-04-06
 
 ### 행과 열에 이름 붙히기
