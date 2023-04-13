@@ -38,7 +38,7 @@ read.table() 함수를 통해 데이터를 읽어 온다.
     > air <-read.table('airquality.txt',header = T,sep=' ')     #파일 읽기
 
     > head(air)
-        Ozone Solar.R Wind Temp Month Day
+            Ozone Solar.R Wind Temp Month Day
         1    41     190  7.4   67     5   1
         2    36     118  8.0   72     5   2
         3    12     149 12.6   74     5   3
