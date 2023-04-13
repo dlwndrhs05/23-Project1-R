@@ -29,7 +29,37 @@
         [1] "End work"
 ```
 ### 2.탭이나 공백으로 분리된 파일 읽기
+R에서 분석할 데이터에 열이 공백이거나 탭으로 분리된 파일의 경우  
+read.table() 함수를 통해 데이터를 읽어 온다.
+```R
+    > getwd()
+        [1] "/Users/junggonlee/Projects/23-Project1-R"      #작업 폴더 확인
 
+    > air <-read.table('airquality.txt',header = T,sep=' ')     #파일 읽기
+
+    > head(air)
+        Ozone Solar.R Wind Temp Month Day
+        1    41     190  7.4   67     5   1
+        2    36     118  8.0   72     5   2
+        3    12     149 12.6   74     5   3
+        4    18     313 11.5   62     5   4
+        5    NA      NA 14.3   56     5   5
+        6    28      NA 14.9   66     5   6
+```
+### 조건문
+
+### 1.if-else
+### 2.ifelse
+### 3.if-else 반복
+
+### 반복문
+
+### 1.for
+### 2.while
+### 3.apply() 계열 함수
+
+### 사용자 정의 함수
+### 1.사용자 정의 함수의 개념
 ## 2023-04-06
 
 ### 행과 열에 이름 붙히기
