@@ -164,6 +164,39 @@ for문이나 while문 대신에 apply() 함수를 사용 할 수 있다.
 ```
 ### 사용자 정의 함수
 ### 1.사용자 정의 함수의 개념
+* 사용자 정의 함수란 사용자가 자주사용하는 R코드를 함수 형태로 저장 해놓고  
+그 함수를 호출하여 사용 할 수 있다.
+```R
+    함수명 <- function(매개변수 목록){
+            실행할 명령문(둘)
+            return(함수의 실행 결과)
+    }
+    mymax <- function(x,y){
+        num.max <-x
+        if(y>x){
+            num.max <-y
+        }
+        return(num.max)
+    }
+
+    > mymax <- function(x,y){
+       num.max <- x
+       if(y>x){
+         num.max <-y
+       }
+       return(num.max)
+     }
+ 
+    > mymax(10,15)
+    [1] 15
+    
+    > a<-mymax(20,15)
+
+    > b<-mymax(31,45)
+
+    > print(a+b)
+        [1] 65
+```
 ## 2023-04-06
 
 ### 행과 열에 이름 붙히기
