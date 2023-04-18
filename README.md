@@ -216,7 +216,7 @@ for문이나 while문 대신에 apply() 함수를 사용 할 수 있다.
     > colnames(score) <-c('English','Math','Science') #열의 이름
 
     > score
-        English Math Science
+         English Math Science
     John      90   85      90
     Tom       85   96      80
     Mark      69   49      70
@@ -226,14 +226,14 @@ for문이나 while문 대신에 apply() 함수를 사용 할 수 있다.
     [1] 85
 
     > score['Tom',c('Math','Science')]
-   Math Science 
+    Math Science 
      96      80 
 
     > score['Mark',]            #마크의 모든 성적
     English    Math Science 
         69      49      70 
     > score[,'English']         #모든학생의 영어성적
-    John  Tom Mark Jane 
+    John Tom Mark Jane 
     90   85   69   78 
 
     > rownames(score)
@@ -280,7 +280,7 @@ R에 기본적으로 저장이 되어 있어 바로 이용이 가능하다.
     150          5.9         3.0          5.1         1.8  virginica
 
     > iris[1:5,]            # 1~5행의 모든 데이터
-    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+        Sepal.Length Sepal.Width Petal.Length Petal.Width Species
     1          5.1         3.5          1.4         0.2  setosa
     2          4.9         3.0          1.4         0.2  setosa
     3          4.7         3.2          1.3         0.2  setosa
@@ -288,7 +288,7 @@ R에 기본적으로 저장이 되어 있어 바로 이용이 가능하다.
     5          5.0         3.6          1.4         0.2  setosa
 
     > iris[1:5,c(1,3)]      # 1~5행의 데이터 중 1,3열의 데이터
-    Sepal.Length Petal.Length
+        Sepal.Length Petal.Length
     1          5.1          1.4
     2          4.9          1.4
     3          4.7          1.3
