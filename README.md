@@ -313,7 +313,7 @@ R에 기본적으로 저장이 되어 있어 바로 이용이 가능하다.
     [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"  
 
     > head(iris)    # 데이터셋의 앞부분 일부 보기
-    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+        Sepal.Length Sepal.Width Petal.Length Petal.Width Species
     1          5.1         3.5          1.4         0.2  setosa
     2          4.9         3.0          1.4         0.2  setosa
     3          4.7         3.2          1.3         0.2  setosa
@@ -412,7 +412,7 @@ R에 기본적으로 저장이 되어 있어 바로 이용이 가능하다.
     [4,]    4    8   12   16   20
 
     > t(z)  #행과 열의 방향 전환
-        [,1] [,2] [,3] [,4]
+          [,1] [,2] [,3] [,4]
     [1,]    1    2    3    4
     [2,]    5    6    7    8
     [3,]    9   10   11   12
@@ -423,7 +423,7 @@ R에 기본적으로 저장이 되어 있어 바로 이용이 가능하다.
         #특정한 조건에 맞는 값들을 추출하는 subset()함수
     IR.1 <- subset(iris, Species=='setosa')
     > IR.1
-        Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+            Sepal.Length Sepal.Width Petal.Length Petal.Width Species
         1           5.1         3.5          1.4         0.2  setosa
         2           4.9         3.0          1.4         0.2  setosa
         3           4.7         3.2          1.3         0.2  setosa
@@ -478,13 +478,13 @@ R에 기본적으로 저장이 되어 있어 바로 이용이 가능하다.
     > IR.2 <-subset(iris, Sepal.Length>5.0 & Sepal.Width>4.0)
 
     > IR.2
-        Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+            Sepal.Length Sepal.Width Petal.Length Petal.Width Species
         16          5.7         4.4          1.5         0.4  setosa
         33          5.2         4.1          1.5         0.1  setosa
         34          5.5         4.2          1.4         0.2  setosa
 
     > IR.2[,c(2,4)] 
-        Sepal.Width Petal.Width
+            Sepal.Width Petal.Width
         16         4.4         0.4
         33         4.1         0.1
         34         4.2         0.2
