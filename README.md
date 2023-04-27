@@ -1,5 +1,70 @@
 # 이중곤
 
+## 2023-04-27
+
+### 막대 그래프
+### 1. 막대그래프 작성의 기초
+* 막대그래프는 그룹이나 범주가 정해져 있는 데이터를 시각화 하는데 사용된다  
+막대그래프는 그룹별로 집계된 데이터를 표현하는 도구 이기 때문에 먼저 그룹별로 데이터를 집계하는 작업이 필요 하게 된다.
+
+``` R
+    > favorite <- c('WINTER','SUMMER','SPRING','SUMMER','SUMMER','FALL','FALL','SUMMER','SPRING','SPRING')
+
+    > favorite
+    [1] "WINTER" "SUMMER" "SPRING" "SUMMER" "SUMMER" "FALL"   "FALL"   "SUMMER" "SPRING"
+    [10] "SPRING"
+
+    > table(favorite)
+    favorite
+     FALL SPRING SUMMER WINTER 
+        2      3      4      1 
+
+    > ds <- table(favorite)         #도수분포표 저장
+
+    > ds                            #도수분포표 내용 확인
+    favorite
+     FALL SPRING SUMMER WINTER 
+        2      3      4      1 
+
+    > barplot(ds,main='favorite season') #막대 그래프 작성
+
+    > barplot(ds,main='favorite season',col='blue')  #막대의 색 지정 (헥스코드로도 색 설정가능)
+
+    > barplot(ds,main='favorite season',col=('blue','red','green','yellow'))  #막대의 색을 각 각 지정
+
+    > barplot(ds,main='favorite season',col='yellow',horiz=TRUE)    #막대그래프 수평 출력
+
+    > barplot(ds,main='favorite season',col='yellow',names=c('FA','SP','SU','WI'))      #그룹 이름 변경
+
+    > barplot(ds,main='favorite season',col='green',las=2)     #그룹 이름 수직 정렬
+```
+### 2. 중첩 그룹의 막대그래프
+``` R
+    > age.A <-c(13709,10974,7979,5000,4250)
+
+    > age.B <-c(17540,29701,36209,33947,24487)
+
+    > age.C <-c(991,2195,5366,12980,19007)
+
+    > ds <- rbind(age.A,age.B,age.C)
+
+    > colnames(ds) <-c('1970','1990','2010','2030','2050')
+
+    > ds
+           1970  1990  2010  2030  2050
+    age.A 13709 10974  7979  5000  4250
+    age.B 17540 29701 36209 33947 24487
+    age.C   991  2195  5366 12980 19007
+```
+
+### 3. 막대그래프에 범례 추가
+
+### 히스토그램 작성
+
+### 다른 그래프
+
+### 1. 다중 그래프
+### 2. 그래프를 파일에 저장
 ## 2023-04-13
 
 ### 파일 입출력할때 알아야 할 내용
