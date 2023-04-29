@@ -55,16 +55,45 @@
     age.A 13709 10974  7979  5000  4250
     age.B 17540 29701 36209 33947 24487
     age.C   991  2195  5366 12980 19007
+
+    > barplot(ds,main='인구 추정',col=c('green','blue','yellow')) # 데이터 마다 색 변경
+
+    > barplot(ds,main='인구 추정',col=c('green','blue','yellow'),beside=TRUE) # 데이터 별로 각각의 막대 구성
 ```
 
 ### 3. 막대그래프에 범례 추가
 
-### 히스토그램 작성
+```R
+    > barplot(ds,main='인구 추정',col=c('green','blue','yellow'),beside=TRUE,legend.text=T)  #범례 추가
 
+    > par(mfrow=c(1,1),mar=c(5,5,5,7))  #그래프를 표시할 창 설정
+
+    > barplot(ds,main='인구 추정',col=c('green','blue','yellow'),beside=TRUE,legend.text=T,args.lengend =list(x='topright',byy='n'.inset=c(-0.25,0)))
+
+    > par(mfrow=c(1,1),mar=c(5,5,5,7))  #그래프를 표시할 창 설정
+
+    > barplot(ds,main='인구 추정',col=c('green','blue','yellow'),beside=TRUE,legend.text=c('0~14세','15~64세','65세 이상'),args.lengend =list(x='topright',byy='n'.inset=c(-0.25,0)))           #범례 내용 변경
+
+    > par(mfrow=c(1,1),mar=c(5,4,4,2)+0.1)      #그래프 창 설정 해제
+
+```
+### 히스토그램 작성
+ * 히스토그램은 막대그래프와 는 보기와 비슷하나 그룹이 명시적으로 존재하지 않는 수치형 자료의 분포를 시각화 할때 사용된다
+ 막대그래프를 그리려면 값의 종류별로 개수를 셀 수 있어야 하는데, 키나 몸무게 등의 수치형 자료는 데이터 내에 값의 종류라는 개념이 없어서
+ 종류별로 개수를 세기 어렵다.  수치형 자료에서는 구간을 나누고 각각의 구간에 해당하는 값들을 세어서 그래프로 그리는 방식으로 히스토그램이 작성된다.
+```R
+
+```
 ### 다른 그래프
 
 ### 1. 다중 그래프
 ### 2. 그래프를 파일에 저장
+
+### 원 그래프와 선 그래프
+
+### 1. 원그래프
+
+
 ## 2023-04-13
 
 ### 파일 입출력할때 알아야 할 내용
