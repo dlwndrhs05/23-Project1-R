@@ -1,4 +1,565 @@
 # 이중곤
+
+## 2023-05-18
+
+### 정렬
+ * 정렬은 주어진 기준에 따라 데이터를 크기순으로 재배열하는 과정으로, 데이터 분석 과정에서  
+ 빈번하게 이루어 지며 숫자의 크기, 문자열의 알파벳,가나다 순으로 정렬을 한다.
+### 1.벡터의 정렬
+```R
+    #숫자 정렬
+    > v1 <- c(1,7,6,8,4,2,3)
+
+    > v1 <- sort(v1)    #오름차순
+    
+    > v1
+    [1] 1 2 3 4 6 7 8
+    
+    > v2 <- sort(v1,decreasing = T)     #내림차순
+    
+    > v2
+    [1] 8 7 6 4 3 2 1  
+    # sort() 함수는 기본적으로 오름차순으로 적용되며 내리마순으로 변경할 경우 함수의 매개변수 decreasing의 값을 TRUE로 바꿔준다.
+
+    #문자열 정렬
+    > name <-c('정대일','강재구','신현석','홍길동')
+
+    > sort(name)
+    [1] "강재구" "신현석" "정대일" "홍길동"
+
+    > sort(name,decreasing = T)
+    [1] "홍길동" "정대일" "신현석" "강재구"
+```
+sort()말고 order()함수를 이용해서도 정렬이 가능하다.  
+sort()는 값들의 크기에 따라 값들을 정렬하고  
+order()는 값의 크기에 따라 값들의 인덱스를 정렬 한다.
+```R
+    > name <-c('정대일','강재구','신현석','홍길동')
+
+    > order(name)
+    [1] 2 3 1 4
+    
+    > order(name,decreasing = T)
+    [1] 4 1 3 2
+
+    > idx <-order(name)
+    
+    > name[idx]
+    [1] "강재구" "신현석" "정대일" "홍길동"
+```
+### 2. 매트릭스와 데이터프레임의 정렬
+ * 매트릭스와 데이터 프레임에 저장된 데이터는 특정 열의 값들을 기준으로 행들을 재배열하는 형태로  
+ 정렬을 하게 된다
+ ```R
+> head(iris)
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+
+> order(iris$Sepal.Length)      #주어진 값에 순서를 정함
+  [1]  14   9  39  43  42   4   7  23  48   3  30  12  13  25  31  46   2  10  35  38  58
+ [22] 107   5   8  26  27  36  41  44  50  61  94   1  18  20  22  24  40  45  47  99  28
+ [43]  29  33  60  49   6  11  17  21  32  85  34  37  54  81  82  90  91  65  67  70  89
+ [64]  95 122  16  19  56  80  96  97 100 114  15  68  83  93 102 115 143  62  71 150  63
+ [85]  79  84  86 120 139  64  72  74  92 128 135  69  98 127 149  57  73  88 101 104 124
+[106] 134 137 147  52  75 112 116 129 133 138  55 105 111 117 148  59  76  66  78  87 109
+[127] 125 141 145 146  77 113 144  53 121 140 142  51 103 110 126 130 108 131 106 118 119
+[148] 123 136 132
+
+> iris[order(iris$Sepal.Length),]
+    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+14           4.3         3.0          1.1         0.1     setosa
+9            4.4         2.9          1.4         0.2     setosa
+39           4.4         3.0          1.3         0.2     setosa
+43           4.4         3.2          1.3         0.2     setosa
+42           4.5         2.3          1.3         0.3     setosa
+4            4.6         3.1          1.5         0.2     setosa
+7            4.6         3.4          1.4         0.3     setosa
+23           4.6         3.6          1.0         0.2     setosa
+48           4.6         3.2          1.4         0.2     setosa
+3            4.7         3.2          1.3         0.2     setosa
+30           4.7         3.2          1.6         0.2     setosa
+12           4.8         3.4          1.6         0.2     setosa
+13           4.8         3.0          1.4         0.1     setosa
+25           4.8         3.4          1.9         0.2     setosa
+31           4.8         3.1          1.6         0.2     setosa
+46           4.8         3.0          1.4         0.3     setosa
+2            4.9         3.0          1.4         0.2     setosa
+10           4.9         3.1          1.5         0.1     setosa
+35           4.9         3.1          1.5         0.2     setosa
+38           4.9         3.6          1.4         0.1     setosa
+58           4.9         2.4          3.3         1.0 versicolor
+107          4.9         2.5          4.5         1.7  virginica
+5            5.0         3.6          1.4         0.2     setosa
+8            5.0         3.4          1.5         0.2     setosa
+26           5.0         3.0          1.6         0.2     setosa
+27           5.0         3.4          1.6         0.4     setosa
+36           5.0         3.2          1.2         0.2     setosa
+41           5.0         3.5          1.3         0.3     setosa
+44           5.0         3.5          1.6         0.6     setosa
+50           5.0         3.3          1.4         0.2     setosa
+61           5.0         2.0          3.5         1.0 versicolor
+94           5.0         2.3          3.3         1.0 versicolor
+1            5.1         3.5          1.4         0.2     setosa
+18           5.1         3.5          1.4         0.3     setosa
+20           5.1         3.8          1.5         0.3     setosa
+22           5.1         3.7          1.5         0.4     setosa
+24           5.1         3.3          1.7         0.5     setosa
+40           5.1         3.4          1.5         0.2     setosa
+45           5.1         3.8          1.9         0.4     setosa
+47           5.1         3.8          1.6         0.2     setosa
+99           5.1         2.5          3.0         1.1 versicolor
+28           5.2         3.5          1.5         0.2     setosa
+29           5.2         3.4          1.4         0.2     setosa
+33           5.2         4.1          1.5         0.1     setosa
+60           5.2         2.7          3.9         1.4 versicolor
+49           5.3         3.7          1.5         0.2     setosa
+6            5.4         3.9          1.7         0.4     setosa
+11           5.4         3.7          1.5         0.2     setosa
+17           5.4         3.9          1.3         0.4     setosa
+21           5.4         3.4          1.7         0.2     setosa
+32           5.4         3.4          1.5         0.4     setosa
+85           5.4         3.0          4.5         1.5 versicolor
+34           5.5         4.2          1.4         0.2     setosa
+37           5.5         3.5          1.3         0.2     setosa
+54           5.5         2.3          4.0         1.3 versicolor
+81           5.5         2.4          3.8         1.1 versicolor
+82           5.5         2.4          3.7         1.0 versicolor
+90           5.5         2.5          4.0         1.3 versicolor
+91           5.5         2.6          4.4         1.2 versicolor
+65           5.6         2.9          3.6         1.3 versicolor
+67           5.6         3.0          4.5         1.5 versicolor
+70           5.6         2.5          3.9         1.1 versicolor
+89           5.6         3.0          4.1         1.3 versicolor
+95           5.6         2.7          4.2         1.3 versicolor
+122          5.6         2.8          4.9         2.0  virginica
+16           5.7         4.4          1.5         0.4     setosa
+19           5.7         3.8          1.7         0.3     setosa
+56           5.7         2.8          4.5         1.3 versicolor
+80           5.7         2.6          3.5         1.0 versicolor
+96           5.7         3.0          4.2         1.2 versicolor
+97           5.7         2.9          4.2         1.3 versicolor
+100          5.7         2.8          4.1         1.3 versicolor
+114          5.7         2.5          5.0         2.0  virginica
+15           5.8         4.0          1.2         0.2     setosa
+68           5.8         2.7          4.1         1.0 versicolor
+83           5.8         2.7          3.9         1.2 versicolor
+93           5.8         2.6          4.0         1.2 versicolor
+102          5.8         2.7          5.1         1.9  virginica
+115          5.8         2.8          5.1         2.4  virginica
+143          5.8         2.7          5.1         1.9  virginica
+62           5.9         3.0          4.2         1.5 versicolor
+71           5.9         3.2          4.8         1.8 versicolor
+150          5.9         3.0          5.1         1.8  virginica
+63           6.0         2.2          4.0         1.0 versicolor
+79           6.0         2.9          4.5         1.5 versicolor
+84           6.0         2.7          5.1         1.6 versicolor
+86           6.0         3.4          4.5         1.6 versicolor
+120          6.0         2.2          5.0         1.5  virginica
+139          6.0         3.0          4.8         1.8  virginica
+64           6.1         2.9          4.7         1.4 versicolor
+72           6.1         2.8          4.0         1.3 versicolor
+74           6.1         2.8          4.7         1.2 versicolor
+92           6.1         3.0          4.6         1.4 versicolor
+128          6.1         3.0          4.9         1.8  virginica
+135          6.1         2.6          5.6         1.4  virginica
+69           6.2         2.2          4.5         1.5 versicolor
+98           6.2         2.9          4.3         1.3 versicolor
+127          6.2         2.8          4.8         1.8  virginica
+149          6.2         3.4          5.4         2.3  virginica
+57           6.3         3.3          4.7         1.6 versicolor
+73           6.3         2.5          4.9         1.5 versicolor
+88           6.3         2.3          4.4         1.3 versicolor
+101          6.3         3.3          6.0         2.5  virginica
+104          6.3         2.9          5.6         1.8  virginica
+124          6.3         2.7          4.9         1.8  virginica
+134          6.3         2.8          5.1         1.5  virginica
+137          6.3         3.4          5.6         2.4  virginica
+147          6.3         2.5          5.0         1.9  virginica
+52           6.4         3.2          4.5         1.5 versicolor
+75           6.4         2.9          4.3         1.3 versicolor
+112          6.4         2.7          5.3         1.9  virginica
+116          6.4         3.2          5.3         2.3  virginica
+129          6.4         2.8          5.6         2.1  virginica
+133          6.4         2.8          5.6         2.2  virginica
+138          6.4         3.1          5.5         1.8  virginica
+55           6.5         2.8          4.6         1.5 versicolor
+105          6.5         3.0          5.8         2.2  virginica
+111          6.5         3.2          5.1         2.0  virginica
+117          6.5         3.0          5.5         1.8  virginica
+148          6.5         3.0          5.2         2.0  virginica
+59           6.6         2.9          4.6         1.3 versicolor
+76           6.6         3.0          4.4         1.4 versicolor
+66           6.7         3.1          4.4         1.4 versicolor
+78           6.7         3.0          5.0         1.7 versicolor
+87           6.7         3.1          4.7         1.5 versicolor
+109          6.7         2.5          5.8         1.8  virginica
+125          6.7         3.3          5.7         2.1  virginica
+141          6.7         3.1          5.6         2.4  virginica
+145          6.7         3.3          5.7         2.5  virginica
+146          6.7         3.0          5.2         2.3  virginica
+77           6.8         2.8          4.8         1.4 versicolor
+113          6.8         3.0          5.5         2.1  virginica
+144          6.8         3.2          5.9         2.3  virginica
+53           6.9         3.1          4.9         1.5 versicolor
+121          6.9         3.2          5.7         2.3  virginica
+140          6.9         3.1          5.4         2.1  virginica
+142          6.9         3.1          5.1         2.3  virginica
+51           7.0         3.2          4.7         1.4 versicolor
+103          7.1         3.0          5.9         2.1  virginica
+110          7.2         3.6          6.1         2.5  virginica
+126          7.2         3.2          6.0         1.8  virginica
+130          7.2         3.0          5.8         1.6  virginica
+108          7.3         2.9          6.3         1.8  virginica
+131          7.4         2.8          6.1         1.9  virginica
+106          7.6         3.0          6.6         2.1  virginica
+118          7.7         3.8          6.7         2.2  virginica
+119          7.7         2.6          6.9         2.3  virginica
+123          7.7         2.8          6.7         2.0  virginica
+136          7.7         3.0          6.1         2.3  virginica
+132          7.9         3.8          6.4         2.0  virginica
+
+> iris[order(iris$Sepal.Length,decreasing=T),]
+     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+132          7.9         3.8          6.4         2.0  virginica
+118          7.7         3.8          6.7         2.2  virginica
+119          7.7         2.6          6.9         2.3  virginica
+123          7.7         2.8          6.7         2.0  virginica
+136          7.7         3.0          6.1         2.3  virginica
+106          7.6         3.0          6.6         2.1  virginica
+131          7.4         2.8          6.1         1.9  virginica
+108          7.3         2.9          6.3         1.8  virginica
+110          7.2         3.6          6.1         2.5  virginica
+126          7.2         3.2          6.0         1.8  virginica
+130          7.2         3.0          5.8         1.6  virginica
+103          7.1         3.0          5.9         2.1  virginica
+51           7.0         3.2          4.7         1.4 versicolor
+53           6.9         3.1          4.9         1.5 versicolor
+121          6.9         3.2          5.7         2.3  virginica
+140          6.9         3.1          5.4         2.1  virginica
+142          6.9         3.1          5.1         2.3  virginica
+77           6.8         2.8          4.8         1.4 versicolor
+113          6.8         3.0          5.5         2.1  virginica
+144          6.8         3.2          5.9         2.3  virginica
+66           6.7         3.1          4.4         1.4 versicolor
+78           6.7         3.0          5.0         1.7 versicolor
+87           6.7         3.1          4.7         1.5 versicolor
+109          6.7         2.5          5.8         1.8  virginica
+125          6.7         3.3          5.7         2.1  virginica
+141          6.7         3.1          5.6         2.4  virginica
+145          6.7         3.3          5.7         2.5  virginica
+146          6.7         3.0          5.2         2.3  virginica
+59           6.6         2.9          4.6         1.3 versicolor
+76           6.6         3.0          4.4         1.4 versicolor
+55           6.5         2.8          4.6         1.5 versicolor
+105          6.5         3.0          5.8         2.2  virginica
+111          6.5         3.2          5.1         2.0  virginica
+117          6.5         3.0          5.5         1.8  virginica
+148          6.5         3.0          5.2         2.0  virginica
+52           6.4         3.2          4.5         1.5 versicolor
+75           6.4         2.9          4.3         1.3 versicolor
+112          6.4         2.7          5.3         1.9  virginica
+116          6.4         3.2          5.3         2.3  virginica
+129          6.4         2.8          5.6         2.1  virginica
+133          6.4         2.8          5.6         2.2  virginica
+138          6.4         3.1          5.5         1.8  virginica
+57           6.3         3.3          4.7         1.6 versicolor
+73           6.3         2.5          4.9         1.5 versicolor
+88           6.3         2.3          4.4         1.3 versicolor
+101          6.3         3.3          6.0         2.5  virginica
+104          6.3         2.9          5.6         1.8  virginica
+124          6.3         2.7          4.9         1.8  virginica
+134          6.3         2.8          5.1         1.5  virginica
+137          6.3         3.4          5.6         2.4  virginica
+147          6.3         2.5          5.0         1.9  virginica
+69           6.2         2.2          4.5         1.5 versicolor
+98           6.2         2.9          4.3         1.3 versicolor
+127          6.2         2.8          4.8         1.8  virginica
+149          6.2         3.4          5.4         2.3  virginica
+64           6.1         2.9          4.7         1.4 versicolor
+72           6.1         2.8          4.0         1.3 versicolor
+74           6.1         2.8          4.7         1.2 versicolor
+92           6.1         3.0          4.6         1.4 versicolor
+128          6.1         3.0          4.9         1.8  virginica
+135          6.1         2.6          5.6         1.4  virginica
+63           6.0         2.2          4.0         1.0 versicolor
+79           6.0         2.9          4.5         1.5 versicolor
+84           6.0         2.7          5.1         1.6 versicolor
+86           6.0         3.4          4.5         1.6 versicolor
+120          6.0         2.2          5.0         1.5  virginica
+139          6.0         3.0          4.8         1.8  virginica
+62           5.9         3.0          4.2         1.5 versicolor
+71           5.9         3.2          4.8         1.8 versicolor
+150          5.9         3.0          5.1         1.8  virginica
+15           5.8         4.0          1.2         0.2     setosa
+68           5.8         2.7          4.1         1.0 versicolor
+83           5.8         2.7          3.9         1.2 versicolor
+93           5.8         2.6          4.0         1.2 versicolor
+102          5.8         2.7          5.1         1.9  virginica
+115          5.8         2.8          5.1         2.4  virginica
+143          5.8         2.7          5.1         1.9  virginica
+16           5.7         4.4          1.5         0.4     setosa
+19           5.7         3.8          1.7         0.3     setosa
+56           5.7         2.8          4.5         1.3 versicolor
+80           5.7         2.6          3.5         1.0 versicolor
+96           5.7         3.0          4.2         1.2 versicolor
+97           5.7         2.9          4.2         1.3 versicolor
+100          5.7         2.8          4.1         1.3 versicolor
+114          5.7         2.5          5.0         2.0  virginica
+65           5.6         2.9          3.6         1.3 versicolor
+67           5.6         3.0          4.5         1.5 versicolor
+70           5.6         2.5          3.9         1.1 versicolor
+89           5.6         3.0          4.1         1.3 versicolor
+95           5.6         2.7          4.2         1.3 versicolor
+122          5.6         2.8          4.9         2.0  virginica
+34           5.5         4.2          1.4         0.2     setosa
+37           5.5         3.5          1.3         0.2     setosa
+54           5.5         2.3          4.0         1.3 versicolor
+81           5.5         2.4          3.8         1.1 versicolor
+82           5.5         2.4          3.7         1.0 versicolor
+90           5.5         2.5          4.0         1.3 versicolor
+91           5.5         2.6          4.4         1.2 versicolor
+6            5.4         3.9          1.7         0.4     setosa
+11           5.4         3.7          1.5         0.2     setosa
+17           5.4         3.9          1.3         0.4     setosa
+21           5.4         3.4          1.7         0.2     setosa
+32           5.4         3.4          1.5         0.4     setosa
+85           5.4         3.0          4.5         1.5 versicolor
+49           5.3         3.7          1.5         0.2     setosa
+28           5.2         3.5          1.5         0.2     setosa
+29           5.2         3.4          1.4         0.2     setosa
+33           5.2         4.1          1.5         0.1     setosa
+60           5.2         2.7          3.9         1.4 versicolor
+1            5.1         3.5          1.4         0.2     setosa
+18           5.1         3.5          1.4         0.3     setosa
+20           5.1         3.8          1.5         0.3     setosa
+22           5.1         3.7          1.5         0.4     setosa
+24           5.1         3.3          1.7         0.5     setosa
+40           5.1         3.4          1.5         0.2     setosa
+45           5.1         3.8          1.9         0.4     setosa
+47           5.1         3.8          1.6         0.2     setosa
+99           5.1         2.5          3.0         1.1 versicolor
+5            5.0         3.6          1.4         0.2     setosa
+8            5.0         3.4          1.5         0.2     setosa
+26           5.0         3.0          1.6         0.2     setosa
+27           5.0         3.4          1.6         0.4     setosa
+36           5.0         3.2          1.2         0.2     setosa
+41           5.0         3.5          1.3         0.3     setosa
+44           5.0         3.5          1.6         0.6     setosa
+50           5.0         3.3          1.4         0.2     setosa
+61           5.0         2.0          3.5         1.0 versicolor
+94           5.0         2.3          3.3         1.0 versicolor
+2            4.9         3.0          1.4         0.2     setosa
+10           4.9         3.1          1.5         0.1     setosa
+35           4.9         3.1          1.5         0.2     setosa
+38           4.9         3.6          1.4         0.1     setosa
+58           4.9         2.4          3.3         1.0 versicolor
+107          4.9         2.5          4.5         1.7  virginica
+12           4.8         3.4          1.6         0.2     setosa
+13           4.8         3.0          1.4         0.1     setosa
+25           4.8         3.4          1.9         0.2     setosa
+31           4.8         3.1          1.6         0.2     setosa
+46           4.8         3.0          1.4         0.3     setosa
+3            4.7         3.2          1.3         0.2     setosa
+30           4.7         3.2          1.6         0.2     setosa
+4            4.6         3.1          1.5         0.2     setosa
+7            4.6         3.4          1.4         0.3     setosa
+23           4.6         3.6          1.0         0.2     setosa
+48           4.6         3.2          1.4         0.2     setosa
+42           4.5         2.3          1.3         0.3     setosa
+9            4.4         2.9          1.4         0.2     setosa
+39           4.4         3.0          1.3         0.2     setosa
+43           4.4         3.2          1.3         0.2     setosa
+14           4.3         3.0          1.1         0.1     setosa
+> iris.new <- iris[order(iris$Sepal.Length),]
+
+> head(iris.new)
+    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+14          4.3         3.0          1.1         0.1  setosa
+9           4.4         2.9          1.4         0.2  setosa
+39          4.4         3.0          1.3         0.2  setosa
+43          4.4         3.2          1.3         0.2  setosa
+42          4.5         2.3          1.3         0.3  setosa
+4           4.6         3.1          1.5         0.2  setosa
+> iris[order(iris$Species,decreasing = T,iris$Petal.Length),]
+    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+119          7.7         2.6          6.9         2.3  virginica
+118          7.7         3.8          6.7         2.2  virginica
+123          7.7         2.8          6.7         2.0  virginica
+106          7.6         3.0          6.6         2.1  virginica
+132          7.9         3.8          6.4         2.0  virginica
+108          7.3         2.9          6.3         1.8  virginica
+110          7.2         3.6          6.1         2.5  virginica
+131          7.4         2.8          6.1         1.9  virginica
+136          7.7         3.0          6.1         2.3  virginica
+101          6.3         3.3          6.0         2.5  virginica
+126          7.2         3.2          6.0         1.8  virginica
+103          7.1         3.0          5.9         2.1  virginica
+144          6.8         3.2          5.9         2.3  virginica
+105          6.5         3.0          5.8         2.2  virginica
+109          6.7         2.5          5.8         1.8  virginica
+130          7.2         3.0          5.8         1.6  virginica
+121          6.9         3.2          5.7         2.3  virginica
+125          6.7         3.3          5.7         2.1  virginica
+145          6.7         3.3          5.7         2.5  virginica
+104          6.3         2.9          5.6         1.8  virginica
+129          6.4         2.8          5.6         2.1  virginica
+133          6.4         2.8          5.6         2.2  virginica
+135          6.1         2.6          5.6         1.4  virginica
+137          6.3         3.4          5.6         2.4  virginica
+141          6.7         3.1          5.6         2.4  virginica
+113          6.8         3.0          5.5         2.1  virginica
+117          6.5         3.0          5.5         1.8  virginica
+138          6.4         3.1          5.5         1.8  virginica
+140          6.9         3.1          5.4         2.1  virginica
+149          6.2         3.4          5.4         2.3  virginica
+112          6.4         2.7          5.3         1.9  virginica
+116          6.4         3.2          5.3         2.3  virginica
+146          6.7         3.0          5.2         2.3  virginica
+148          6.5         3.0          5.2         2.0  virginica
+102          5.8         2.7          5.1         1.9  virginica
+111          6.5         3.2          5.1         2.0  virginica
+115          5.8         2.8          5.1         2.4  virginica
+134          6.3         2.8          5.1         1.5  virginica
+142          6.9         3.1          5.1         2.3  virginica
+143          5.8         2.7          5.1         1.9  virginica
+150          5.9         3.0          5.1         1.8  virginica
+114          5.7         2.5          5.0         2.0  virginica
+120          6.0         2.2          5.0         1.5  virginica
+147          6.3         2.5          5.0         1.9  virginica
+122          5.6         2.8          4.9         2.0  virginica
+124          6.3         2.7          4.9         1.8  virginica
+128          6.1         3.0          4.9         1.8  virginica
+127          6.2         2.8          4.8         1.8  virginica
+139          6.0         3.0          4.8         1.8  virginica
+107          4.9         2.5          4.5         1.7  virginica
+84           6.0         2.7          5.1         1.6 versicolor
+78           6.7         3.0          5.0         1.7 versicolor
+53           6.9         3.1          4.9         1.5 versicolor
+73           6.3         2.5          4.9         1.5 versicolor
+71           5.9         3.2          4.8         1.8 versicolor
+77           6.8         2.8          4.8         1.4 versicolor
+51           7.0         3.2          4.7         1.4 versicolor
+57           6.3         3.3          4.7         1.6 versicolor
+64           6.1         2.9          4.7         1.4 versicolor
+74           6.1         2.8          4.7         1.2 versicolor
+87           6.7         3.1          4.7         1.5 versicolor
+55           6.5         2.8          4.6         1.5 versicolor
+59           6.6         2.9          4.6         1.3 versicolor
+92           6.1         3.0          4.6         1.4 versicolor
+52           6.4         3.2          4.5         1.5 versicolor
+56           5.7         2.8          4.5         1.3 versicolor
+67           5.6         3.0          4.5         1.5 versicolor
+69           6.2         2.2          4.5         1.5 versicolor
+79           6.0         2.9          4.5         1.5 versicolor
+85           5.4         3.0          4.5         1.5 versicolor
+86           6.0         3.4          4.5         1.6 versicolor
+66           6.7         3.1          4.4         1.4 versicolor
+76           6.6         3.0          4.4         1.4 versicolor
+88           6.3         2.3          4.4         1.3 versicolor
+91           5.5         2.6          4.4         1.2 versicolor
+75           6.4         2.9          4.3         1.3 versicolor
+98           6.2         2.9          4.3         1.3 versicolor
+62           5.9         3.0          4.2         1.5 versicolor
+95           5.6         2.7          4.2         1.3 versicolor
+96           5.7         3.0          4.2         1.2 versicolor
+97           5.7         2.9          4.2         1.3 versicolor
+68           5.8         2.7          4.1         1.0 versicolor
+89           5.6         3.0          4.1         1.3 versicolor
+100          5.7         2.8          4.1         1.3 versicolor
+54           5.5         2.3          4.0         1.3 versicolor
+63           6.0         2.2          4.0         1.0 versicolor
+72           6.1         2.8          4.0         1.3 versicolor
+90           5.5         2.5          4.0         1.3 versicolor
+93           5.8         2.6          4.0         1.2 versicolor
+60           5.2         2.7          3.9         1.4 versicolor
+70           5.6         2.5          3.9         1.1 versicolor
+83           5.8         2.7          3.9         1.2 versicolor
+81           5.5         2.4          3.8         1.1 versicolor
+82           5.5         2.4          3.7         1.0 versicolor
+65           5.6         2.9          3.6         1.3 versicolor
+61           5.0         2.0          3.5         1.0 versicolor
+80           5.7         2.6          3.5         1.0 versicolor
+58           4.9         2.4          3.3         1.0 versicolor
+94           5.0         2.3          3.3         1.0 versicolor
+99           5.1         2.5          3.0         1.1 versicolor
+25           4.8         3.4          1.9         0.2     setosa
+45           5.1         3.8          1.9         0.4     setosa
+6            5.4         3.9          1.7         0.4     setosa
+19           5.7         3.8          1.7         0.3     setosa
+21           5.4         3.4          1.7         0.2     setosa
+24           5.1         3.3          1.7         0.5     setosa
+12           4.8         3.4          1.6         0.2     setosa
+26           5.0         3.0          1.6         0.2     setosa
+27           5.0         3.4          1.6         0.4     setosa
+30           4.7         3.2          1.6         0.2     setosa
+31           4.8         3.1          1.6         0.2     setosa
+44           5.0         3.5          1.6         0.6     setosa
+47           5.1         3.8          1.6         0.2     setosa
+4            4.6         3.1          1.5         0.2     setosa
+8            5.0         3.4          1.5         0.2     setosa
+10           4.9         3.1          1.5         0.1     setosa
+11           5.4         3.7          1.5         0.2     setosa
+16           5.7         4.4          1.5         0.4     setosa
+20           5.1         3.8          1.5         0.3     setosa
+22           5.1         3.7          1.5         0.4     setosa
+28           5.2         3.5          1.5         0.2     setosa
+32           5.4         3.4          1.5         0.4     setosa
+33           5.2         4.1          1.5         0.1     setosa
+35           4.9         3.1          1.5         0.2     setosa
+40           5.1         3.4          1.5         0.2     setosa
+49           5.3         3.7          1.5         0.2     setosa
+1            5.1         3.5          1.4         0.2     setosa
+2            4.9         3.0          1.4         0.2     setosa
+5            5.0         3.6          1.4         0.2     setosa
+7            4.6         3.4          1.4         0.3     setosa
+9            4.4         2.9          1.4         0.2     setosa
+13           4.8         3.0          1.4         0.1     setosa
+18           5.1         3.5          1.4         0.3     setosa
+29           5.2         3.4          1.4         0.2     setosa
+34           5.5         4.2          1.4         0.2     setosa
+38           4.9         3.6          1.4         0.1     setosa
+46           4.8         3.0          1.4         0.3     setosa
+48           4.6         3.2          1.4         0.2     setosa
+50           5.0         3.3          1.4         0.2     setosa
+3            4.7         3.2          1.3         0.2     setosa
+17           5.4         3.9          1.3         0.4     setosa
+37           5.5         3.5          1.3         0.2     setosa
+39           4.4         3.0          1.3         0.2     setosa
+41           5.0         3.5          1.3         0.3     setosa
+42           4.5         2.3          1.3         0.3     setosa
+43           4.4         3.2          1.3         0.2     setosa
+15           5.8         4.0          1.2         0.2     setosa
+36           5.0         3.2          1.2         0.2     setosa
+14           4.3         3.0          1.1         0.1     setosa
+23           4.6         3.6          1.0         0.2     setosa
+ ```
+ ### 1.샘플링
+  * 샘플링은 통계용어로서 주어진 값들이 있을 때 그중에서 임의의 개수만큼 값들을 추출하는 작업을 의미한다.  
+  비복원추출과 복원 추출이 있으며   
+  비복원 추출은 이미 나온 값이 다시 나오지 않고  
+  복원 추출은 반대로 이미 나온 값이 다시 나올 확률이 있다.  
+  데이터 분석에는 주로 비복원 추출을 많이 사용한다.
+```R
+
+```
+ ### 2.조합
+
+ ### 데이터 집계
+
+ ### 1.품종별 꽃잎 꽃받침의 폭과 길이의 평균
+
+ ### 2. 품종별 꽃잎 꽃밭짐의 폭과 길이의 표준 편차
+
+ ### 3. 2개의 기준에 대해 다른 열들의 최댓값 구하기
+
+ ### 나무지도
+
+ 
 ## 2023-05-11
 ### 다중변수 데이터 분석
 
@@ -141,6 +702,28 @@ x축의 변수의 값이 증가하면 y축 변수의 값이 비례해서 증가�
     4          4.6          NA          1.5         0.2  setosa
     5          5.0          NA          1.4         0.2  setosa
     6          5.4          NA          1.7         0.4  setosa
+
+    #for문을 사용하여 결측값 계산
+    > for(i in 1:ncol(x)){
+    +   this.na <- is.na(x[,i])
+    +   cat(colnames(x)[i], '\t',sum(this.na), '\n')
+    + }
+        Sepal.Length 	 0 
+        Sepal.Width 	 150 
+        Petal.Length 	 1 
+        Petal.Width 	 1 
+        Species 	 0 
+
+    # apply를 사용하여 결측값 계산
+    > col_na <- function(y){
+    +   return(sum(is.na(y)))
+    + }
+    > 
+    > na_count <-apply(x,2,FUN=col_na)
+    > na_count
+    Sepal.Length  Sepal.Width Petal.Length  Petal.Width      Species 
+            0          150            1            1            0 
+
 ```
 
 ## 2023-05-04
