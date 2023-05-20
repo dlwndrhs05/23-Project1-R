@@ -545,21 +545,173 @@ order()는 값의 크기에 따라 값들의 인덱스를 정렬 한다.
   복원 추출은 반대로 이미 나온 값이 다시 나올 확률이 있다.  
   데이터 분석에는 주로 비복원 추출을 많이 사용한다.
 ```R
+    > x <- 1:100
 
+    > y <- sample(x,size=10,replace=FALSE) #비복원 추출
+
+    > y
+    [1] 59 60 65 77 70 75 82 44 95 32
+
+    > idx <- sample(1:nrow(iris),size=50,replace=F)
+
+    > iris.50 <- iris[idx,]
+
+    > dim(iris.50)
+    [1] 50  5
+
+    > head(iris.50)
+        Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+    74           6.1         2.8          4.7         1.2 versicolor
+    114          5.7         2.5          5.0         2.0  virginica
+    21           5.4         3.4          1.7         0.2     setosa
+    5            5.0         3.6          1.4         0.2     setosa
+    126          7.2         3.2          6.0         1.8  virginica
+    111          6.5         3.2          5.1         2.0  virginica
+```
+sample() 함수는 임의 추출 이기 때문에 함수를 실행할 때마다 매번 결과가 다르다.  
+결과를 동일하게 하고싶은 경우 sample()함수 실행 이전에 set.seed()함수를 실행하여서 사용하면된다.
+```R
+    > sample(1:20,size=5)
+    [1] 19  4 15 18  5
+
+    > sample(1:20,size=5)
+    [1] 13  2  4 12 16
+
+    > sample(1:20,size=5)
+    [1]  6  9 16  2  7
+
+    > set.seed(100)
+
+    > sample(1:20,size=5)
+    [1] 10  6 16 14 12
+
+    > set.seed(100)
+
+    > sample(1:20,size=5)
+    [1] 10  6 16 14 12
+
+    > sample(1:20,size=5)           #샘플링을 한번 하면 set.seed()의 함수효과가 사라진다.
+    [1]  6  4 20  2  7
 ```
  ### 2.조합
+* 조합은 글자 그대로 주어진 데이터값 중에서 몇 개씩 짝을 지어 추출하는 작업이다.
+```R
+    > combn(1:5,3)      # 1~5에서 3개를 뽑는 조합
+        [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+    [1,]    1    1    1    1    1    1    2    2    2     3
+    [2,]    2    2    2    3    3    4    3    3    4     4
+    [3,]    3    4    5    4    5    5    4    5    5     5
+    
+    > x <-c("red","green","blue","black","white")
 
+    > com <- combn(x,2)     #x의 원소를 2개씩 뽑는 조합
+
+    > com
+    [,1]    [,2]   [,3]    [,4]    [,5]    [,6]    [,7]    [,8]    [,9]    [,10]  
+    [1,] "red"   "red"  "red"   "red"   "green" "green" "green" "blue"  "blue"  "black"
+    [2,] "green" "blue" "black" "white" "blue"  "black" "white" "black" "white" "white"
+     
+    > for(i in 1:ncol(com)) {           #조합 출력
+         cat(com[,i],"\n")
+     }
+    red green 
+    red blue 
+    red black 
+    red white 
+    green blue 
+    green black 
+    green white 
+    blue black 
+    blue white 
+    black white 
+```
  ### 데이터 집계
-
+ * 집계는 매트릭스나 데이터프레임과 같은 2차원 데이터 형식의 데이터의 그룹에 대해서 합계나 평균울 계산하는 작업이다.
  ### 1.품종별 꽃잎 꽃받침의 폭과 길이의 평균
+ ```R
+    #iris 데이터셋에서 각 품종별로 꽃잎 꽃받침의 폭과 길이의 평균 값
+    > agg <- aggregate(iris[,-5],by=list(iris$Species),FUN=mean)
+  
+    > agg
+         Group.1 Sepal.Length Sepal.Width Petal.Length Petal.Width
+    1     setosa        5.006       3.428        1.462       0.246
+    2 versicolor        5.936       2.770        4.260       1.326
+    3  virginica        6.588       2.974        5.552       2.026
+```
 
  ### 2. 품종별 꽃잎 꽃밭짐의 폭과 길이의 표준 편차
+```R
+    #iris 데이터셋에서 각 품종별로 꽃잎 꽃받침의 폭과 길이의 표준편차를 나타내시오
+    > agg <- aggregate(iris[,-5],by=list(품종=iris$Species),FUN=sd)
 
+    > agg
+             품종 Sepal.Length Sepal.Width Petal.Length Petal.Width
+    1     setosa    0.3524897   0.3790644    0.1736640   0.1053856
+    2 versicolor    0.5161711   0.3137983    0.4699110   0.1977527
+    3  virginica    0.6358796   0.3224966    0.5518947   0.2746501
+```
  ### 3. 2개의 기준에 대해 다른 열들의 최댓값 구하기
+```R
+    #mtcars 데이터셋에서 cyl과 vs를 기준으로 다른 열들의 최댓값을 나타내시오
+    > head(mtcars)
+                       mpg cyl disp  hp drat    wt  qsec vs am gear carb
+    Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+    Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+    Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+    Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+    Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+    Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 
+    > agg <- aggregate(mtcars, by=list(cyl=mtcars$cyl,vs=mtcars$vs),FUN=max)
+
+    > agg
+      cyl vs  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+    1   4  0 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+    2   6  0 21.0   6 160.0 175 3.90 2.875 17.02  0  1    5    6
+    3   8  0 19.2   8 472.0 335 4.22 5.424 18.00  0  1    5    8
+    4   4  1 33.9   4 146.7 113 4.93 3.190 22.90  1  1    5    2
+    5   6  1 21.4   6 258.0 123 3.92 3.460 20.22  1  0    4    4  
+```
+### 고급 그래프
+* 데이터 분석 과정 중 가장 중요한 기술 중 하나는 데이터 시각화 이다.  
+   데이터를 시각화하면 데이터가 저장하고 있는 정보나 의미를 쉽게 파악할 수 있다.
  ### 나무지도
+  * 나무지도는 사각 타일의 형태로 표현되며 데이터의 정보를 타일의 크기와 색깔로 나타낼 수 있다.  
+    또한 타일들은 계층 구조로 되어 있어서 데이터에 존재하는 계층 구조까지 표현할 수 있다.
 
- 
+```R
+    > data(GNI2014)
+
+    > head(GNI2014)
+    iso3          country     continent population    GNI
+    3  BMU          Bermuda North America      67837 106140
+    4  NOR           Norway        Europe    4676305 103630
+    5  QAT            Qatar          Asia     833285  92200
+    6  CHE      Switzerland        Europe    7604467  88120
+    7  MAC Macao SAR, China          Asia     559846  76270
+    8  LUX       Luxembourg        Europe     491775  75990
+
+    >treemap(GNI2014,
+        index = c('continent','iso3'), #계층 구조 설정(대륙-국가)
+        vSize='population',            #타일의 크기
+        vColor='GNI',                  #타일의 컬러
+        type='value',                  #타일 컬러링 방법
+        bg.labels='yellow',            #레이블의 배경색
+        title="World's GNI")           #나무지도 제목
+```
+treemap() 함수의 매개변수
+```R
+    > st <-data.frame(state.x77)
+    > st <-data.frame(st,stname=rownames(st))
+    
+    > treemap(st,
+             index = c('stname'),
+             vSize='Area',
+             vColor='Income',
+             type='value',
+             title='USA states area and income')
+```
+
 ## 2023-05-11
 ### 다중변수 데이터 분석
 
